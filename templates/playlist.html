@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="jumbotron">
   <h1>{{ playlist.name }}!</h1>
@@ -9,10 +7,13 @@
   {% endif %}
 </div>
 
-
-<div class="text-danger">
-  SHOW ALL OF THE SONGS IN THIS PLAYLIST HERE
-</div>
+<ul>
+  ALL OF THE SONGS IN THIS PLAYLIST HERE {% for song in songs %}
+  <li>
+    <b>{{song.artist}} - {{song.title}}</b>
+  </li>
+  {% endfor %}
+</ul>
 
 <p>
   <a class="btn btn-primary" href="/playlists/{{ playlist.id }}/add-song">

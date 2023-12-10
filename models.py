@@ -9,23 +9,27 @@ class Playlist(db.Model):
     """Playlist."""
     __tablename__='playlists'
     id=db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name=db.Column(db.String(20), unique=True, nullable=False)
+    name=db.Column(db.String, unique=True, nullable=False)
     description=db.Column(db.Text)
+
+    song=db.relationship('Song', secondary='playlists_songs', backref='playlists')
 
 
 class Song(db.Model):
     """Song."""
     __tablename__='songs'
     id=db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title=db.Column(db.String(20), nullable=False)
-    atrist=db.Column(db.String(20), nullable=False) 
+    title=db.Column(db.String(50), nullable=False)
+    artist=db.Column(db.String(50), nullable=False) 
+
+    playlist=db.relationship('Playlist', secondary='playlists_songs', backref='songs')
 
 class PlaylistSong(db.Model):
     """Mapping of a playlist to a song."""
     __tablename__='playlists_songs'
     id=db.Column(db.Integer, primary_key=True, autoincrement=True)
-    playlist_id=db.Column(db.String(20), db.ForeignKey('playlists.id'))
-    song_id=db.Column(db.Text, db.ForeignKey('songs.id'))
+    playlist_id=db.Column(db.Integer, db.ForeignKey('playlists.id'))
+    song_id=db.Column(db.Integer, db.ForeignKey('songs.id'))
 
     playlist=db.relationship('Playlist', backref='playlists_songs')
     song=db.relationship('Song', backref='playlists_songs')

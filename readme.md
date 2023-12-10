@@ -9,3 +9,4 @@ To get this application running, make sure you do the following in the Terminal:
 5. `flask run`
 # playlist
 # playlist
+# playlist
